@@ -723,17 +723,18 @@ public class DoUploadImpl implements DoUpload{
         if(count==1){
             order = (OrderTb)commonDao.selectObjectByConditions(con);
         }else{ //兼容时间不准确
-//            newCon.setCarNumber(orderTb.getCarNumber());
-//            newCon.setComid(orderTb.getComid());
-//            newCon.setOrderIdLocal(orderTb.getOrderIdLocal());
-//            newCon.setState(0);
+            newCon.setCarNumber(orderTb.getCarNumber());
+            newCon.setComid(orderTb.getComid());
+            newCon.setOrderIdLocal(orderTb.getOrderIdLocal());
+            newCon.setState(0);
 //            Integer newCount = commonDao.selectCountByConditions(newCon);
+            List<Map<String,Object>> list = commonDao.selectListByConditions(newCon);
             logger.error("begin search order count....");
-            String sql ="select id from order_tb where " +
-                    " id in  (select id from order_tb where  comid="+orderTb.getComid()+" " +
-                    "AND car_number='"+orderTb.getCarNumber()+"'  " +
-                    "AND order_id_local='"+orderTb.getOrderIdLocal()+"' ) and state=0";
-            List<Map<String,Object>> list = commonDao.getObjectBySql(sql);
+//            String sql ="select id from order_tb where " +
+//                    " id in  (select id from order_tb where  comid="+orderTb.getComid()+" " +
+//                    "AND car_number='"+orderTb.getCarNumber()+"'  " +
+//                    "AND order_id_local='"+orderTb.getOrderIdLocal()+"' ) and state=0";
+//            List<Map<String,Object>> list = commonDao.getObjectBySql(sql);
             Integer newCount =0;
             if(list!=null) {
                 newCount = list.size();
